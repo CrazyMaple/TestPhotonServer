@@ -1,8 +1,7 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-
+﻿using UnityEngine;
+using Common;
 using ExitGames.Client.Photon;
+using System.Collections.Generic;
 
 public class PhotonEngine : MonoBehaviour, IPhotonPeerListener {
 
@@ -11,8 +10,9 @@ public class PhotonEngine : MonoBehaviour, IPhotonPeerListener {
         Test = 0
     };
 
+    private Dictionary<OperationCode, Request> RequestDict = new Dictionary<OperationCode, Request>();
     #region Instance
-    private static PhotonEngine Instance;
+    public static PhotonEngine Instance;
     #endregion
     void Awake()
     {
@@ -77,14 +77,16 @@ public class PhotonEngine : MonoBehaviour, IPhotonPeerListener {
     //发送请求后服务端的响应
     public void OnOperationResponse(OperationResponse operationResponse)
     {
-        switch ((RequestCode)operationResponse.OperationCode)
+        OperationCode opCode = (OperationCode)operationResponse.OperationCode;
+        Request request = null;
+        bool bSucess = RequestDict.TryGetValue(opCode, out request);
+        if (bSucess)
         {
-            case RequestCode.Test:
-                {
-                    Debug.Log(operationResponse.Parameters[1].ToString());
-                }
-                break;
-            default:break;
+            request.OnOperationResponse(operationResponse);
+        }
+        else
+        {
+            Debug.Log("找不到对应的响应对象!OpCode:" + opCode.ToString());
         }
     }
 
@@ -107,5 +109,15 @@ public class PhotonEngine : MonoBehaviour, IPhotonPeerListener {
                 break;
 
         }
+    }
+
+    public void AddRequest(Request request)
+    {
+        RequestDict.Add(request.OpCode, request);
+    }
+
+    public void RemoveRequest(Request request)
+    {
+        RequestDict.Remove(request.OpCode);
     }
 }

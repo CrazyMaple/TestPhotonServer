@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.UI;
 
 public class LoginPanel : MonoBehaviour {
@@ -8,10 +6,11 @@ public class LoginPanel : MonoBehaviour {
     public Transform registerPanelTransform;
     public InputField usernameIF;
     public InputField passwordIF;
+    private LoginRequest scriptLoginRequest;
 
     // Use this for initialization
     void Start () {
-		
+        scriptLoginRequest = this.GetComponent<LoginRequest>();
 	}
 	
 	// Update is called once per frame
@@ -23,6 +22,18 @@ public class LoginPanel : MonoBehaviour {
     {
         string strUserName = usernameIF.text;
         string strPassword = passwordIF.text;
+        if (strUserName == "")
+        {
+            Debug.Log("账号不能为空");
+        }
+        else if (strPassword == "")
+        {
+            Debug.Log("密码不能为空");
+        }
+        else
+        {
+            scriptLoginRequest.DefaultRequest();
+        }
         Debug.Log("Login U:" + strUserName + " P:" + strPassword);
     }
     
