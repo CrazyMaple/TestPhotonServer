@@ -32,6 +32,8 @@ public class LoginPanel : MonoBehaviour {
         }
         else
         {
+            scriptLoginRequest.UserName = strUserName;
+            scriptLoginRequest.PassWord = strPassword;
             scriptLoginRequest.DefaultRequest();
         }
         Debug.Log("Login U:" + strUserName + " P:" + strPassword);

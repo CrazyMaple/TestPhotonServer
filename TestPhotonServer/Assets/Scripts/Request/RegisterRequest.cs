@@ -1,10 +1,10 @@
-﻿using ExitGames.Client.Photon;
+﻿using System.Collections.Generic;
+using ExitGames.Client.Photon;
 using UnityEngine;
-using System.Collections.Generic;
 using Common;
 using Common.Tools;
 
-public class LoginRequest : Request {
+public class RegisterRequest : Request {
 
     [HideInInspector]
     public string UserName;
@@ -21,10 +21,8 @@ public class LoginRequest : Request {
 
     public override void OnOperationResponse(OperationResponse operationResponse)
     {
-        Debug.Log(operationResponse.OperationCode + " LoginState:" + operationResponse.ReturnCode);
-        //string strLoginState = DictTool.GetValue<byte, object>(operationResponse.Parameters, (byte)ParameterCode.LoginState).ToString();
-        //Debug.Log(operationResponse.OperationCode + " LoginState:" + strLoginState);
+        Debug.Log(operationResponse.OperationCode + " RegisterState:" + operationResponse.ReturnCode);
+        //string strRegisterState = DictTool.GetValue<byte, object>(operationResponse.Parameters, (byte)ParameterCode.LoginState).ToString();
+        //Debug.Log(operationResponse.OperationCode + " RegisterState:" + strRegisterState);
     }
-
-
 }

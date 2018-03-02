@@ -8,11 +8,13 @@ public class RegisterPanel : MonoBehaviour {
     public Transform loginPanelTransform;
     public InputField usernameIF;
     public InputField passwordIF;
+    RegisterRequest scriptRegisterRequest;
 
     // Use this for initialization
     void Start () {
-		
-	}
+        scriptRegisterRequest = this.GetComponent<RegisterRequest>();
+
+    }
 	
 	// Update is called once per frame
 	void Update () {
@@ -23,6 +25,20 @@ public class RegisterPanel : MonoBehaviour {
     {
         string strUserName = usernameIF.text;
         string strPassword = passwordIF.text;
+        if (strUserName == "")
+        {
+            Debug.Log("账号不能为空");
+        }
+        else if (strPassword == "")
+        {
+            Debug.Log("密码不能为空");
+        }
+        else
+        {
+            scriptRegisterRequest.UserName = strUserName;
+            scriptRegisterRequest.PassWord = strPassword;
+            scriptRegisterRequest.DefaultRequest();
+        }
         Debug.Log("Register U:" + strUserName + " P:" + strPassword);
     }
 
