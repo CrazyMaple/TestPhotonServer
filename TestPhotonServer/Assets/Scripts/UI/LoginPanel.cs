@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
+using Common;
 
 public class LoginPanel : MonoBehaviour {
 
@@ -7,6 +8,7 @@ public class LoginPanel : MonoBehaviour {
     public InputField usernameIF;
     public InputField passwordIF;
     private LoginRequest scriptLoginRequest;
+    public Text hitText;
 
     // Use this for initialization
     void Start () {
@@ -24,14 +26,15 @@ public class LoginPanel : MonoBehaviour {
         string strPassword = passwordIF.text;
         if (strUserName == "")
         {
-            Debug.Log("账号不能为空");
+            SetHitText("账号不能为空");
         }
         else if (strPassword == "")
         {
-            Debug.Log("密码不能为空");
+            SetHitText("密码不能为空");
         }
         else
         {
+            SetHitText("");
             scriptLoginRequest.UserName = strUserName;
             scriptLoginRequest.PassWord = strPassword;
             scriptLoginRequest.DefaultRequest();
@@ -45,5 +48,22 @@ public class LoginPanel : MonoBehaviour {
         passwordIF.text = "";
         this.gameObject.SetActive(false);
         registerPanelTransform.gameObject.SetActive(true);
+    }
+
+    private void SetHitText(string strText)
+    {
+        hitText.text = strText;
+    }
+
+    public void OnLoginResponse(ReturnCode returnCode)
+    {
+        if (returnCode == ReturnCode.Success)
+        {
+            SetHitText("登录成功!");
+        }
+        else
+        {
+            SetHitText("登录失败!");
+        }
     }
 }

@@ -11,6 +11,14 @@ public class LoginRequest : Request {
     [HideInInspector]
     public string PassWord;
 
+    LoginPanel scriptLoginPanel;
+
+    public override void Start()
+    {
+        base.Start();
+        scriptLoginPanel = GetComponent<LoginPanel>();
+    }
+
     public override void DefaultRequest()
     {
         Dictionary<byte, object> data = new Dictionary<byte, object>();
@@ -21,7 +29,12 @@ public class LoginRequest : Request {
 
     public override void OnOperationResponse(OperationResponse operationResponse)
     {
-        Debug.Log(operationResponse.OperationCode + " LoginState:" + operationResponse.ReturnCode);
+        if ((OperationCode)operationResponse.OperationCode == OpCode)
+        {
+            scriptLoginPanel.OnLoginResponse((ReturnCode)operationResponse.ReturnCode);
+        }//else 非法请求
+
+        //Debug.Log(operationResponse.OperationCode + " LoginState:" + operationResponse.ReturnCode);
         //string strLoginState = DictTool.GetValue<byte, object>(operationResponse.Parameters, (byte)ParameterCode.LoginState).ToString();
         //Debug.Log(operationResponse.OperationCode + " LoginState:" + strLoginState);
     }

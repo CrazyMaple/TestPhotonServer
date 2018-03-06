@@ -9,7 +9,7 @@ public abstract class Request : MonoBehaviour {
     public abstract void OnOperationResponse(OperationResponse operationResponse);
 
     // Use this for initialization
-    void Start () {
+    public virtual void Start () {
         PhotonEngine.Instance.AddRequest(this);
 	}
 
