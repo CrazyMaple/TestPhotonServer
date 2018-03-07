@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 using Common;
+using UnityEngine.SceneManagement;
 
 public class LoginPanel : MonoBehaviour {
 
@@ -60,6 +61,7 @@ public class LoginPanel : MonoBehaviour {
         if (returnCode == ReturnCode.Success)
         {
             SetHitText("登录成功!");
+            SceneManager.LoadScene("Game");
         }
         else
         {
