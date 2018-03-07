@@ -23,7 +23,7 @@ public class SyncPositionRequest : Request {
     }
 
     // Use this for initialization
-    void Start () {
+    private void Start () {
 		
 	}
 	

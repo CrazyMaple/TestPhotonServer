@@ -5,11 +5,8 @@ using System.Collections.Generic;
 
 public class PhotonEngine : MonoBehaviour, IPhotonPeerListener {
 
-    enum RequestCode
-    {
-        Test = 0
-    };
-
+    [HideInInspector]
+    public string UserName = "";
     private Dictionary<OperationCode, Request> RequestDict = new Dictionary<OperationCode, Request>();
     #region Instance
     public static PhotonEngine Instance;

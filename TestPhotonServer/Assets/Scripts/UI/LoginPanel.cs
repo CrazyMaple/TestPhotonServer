@@ -61,6 +61,7 @@ public class LoginPanel : MonoBehaviour {
         if (returnCode == ReturnCode.Success)
         {
             SetHitText("登录成功!");
+            PhotonEngine.Instance.UserName = scriptLoginRequest.UserName;
             SceneManager.LoadScene("Game");
         }
         else
